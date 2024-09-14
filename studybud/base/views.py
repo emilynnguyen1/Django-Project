@@ -79,6 +79,7 @@ def home(request):
     context = {'rooms': rooms, 'topics': topics, 
     'room_count': room_count, 'room_messages': room_messages}
     return render(request, 'base/home.html', context)
+    
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
@@ -96,6 +97,15 @@ def room(request, pk):
 
     context = {'room': room, 'room_messages': room_messages, 'participants': participants}
     return render(request, 'base/room.html', context)
+
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    rooms = user.room_set.all()
+    room_messages = user.message_set.all()
+    topics = Topic.objects.all()
+    context = {'user': user, 'rooms': rooms,
+                'room_messages': room_messages, 'topics': topics}
+    return render(request, 'base/profile.html', context)
 
 # Restricted, only authenticated users can create
 @login_required(login_url='/login')
