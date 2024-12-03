@@ -1,1 +1,1 @@
-# Django-Tutorial
+# Study Buddy
